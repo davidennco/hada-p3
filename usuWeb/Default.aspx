@@ -15,7 +15,7 @@
         Edad:
         <asp:TextBox ID="Edad" runat="server" Width="173px"></asp:TextBox>
         <br />
-        <asp:Button ID="Leer" runat="server" Text="Leer" />
+        <asp:Button ID="Leer" runat="server" Text="Leer" OnClick="Leer_Click" />
         &nbsp;
         <asp:Button ID="Leer_Primero" runat="server" Text="Leer Primero" />
         &nbsp;
