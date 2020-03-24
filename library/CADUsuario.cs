@@ -15,15 +15,15 @@ namespace library
     {
         private string constring;
         public CADUsuario() {
-            constring = ConfigurationManager.ConnectionStrings["miconexion"].ToString();
+            constring = ConfigurationManager.ConnectionStrings["Database"].ToString();
         }
         public bool createUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
+            string comando = "Insert Into usuario (nif, nombre, edad) " +"VALUES (" + en.nif + ", " + en.nombre + ", " + en.edad + ")";
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Insert Into usuario (nif, nombre, edad) " +
-                    "VALUES (" + en.nif + ", " + en.nombre + ", " + en.edad+")", conn);
+                SqlCommand cmd = new SqlCommand(comando, conn);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)
@@ -39,13 +39,11 @@ namespace library
         }
         public bool readUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
+            string comando = "SELECT * " +"FROM usuario where nif = " + en.nif +" and nombre = " + en.nombre +" and edad = " + en.edad;
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * " +
-                                                        "FROM usuario where nif = "+en.nif+" " +
-                                                        "and nombre = "+en.nombre +
-                                                        " and edad = "+ en.edad, conn);
+                SqlCommand cmd = new SqlCommand(comando, conn);
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
@@ -73,13 +71,11 @@ namespace library
         }
         public bool readFirstUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
+            string comando = "SELECT * " +"FROM usuario where nif = " + en.nif + " and nombre = " + en.nombre + " and edad = " + en.edad;
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * " +
-                                                        "FROM usuario where nif = " + en.nif + " " +
-                                                        "and nombre = " + en.nombre +
-                                                        " and edad = " + en.edad, conn);
+                SqlCommand cmd = new SqlCommand(comando, conn);
                 SqlDataReader dr = cmd.ExecuteReader();
                 dr.Read();
                 en.edad = int.Parse(dr["edad"].ToString());
@@ -100,13 +96,11 @@ namespace library
         }
         public bool readNextUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
+            string comando = "SELECT * " + "FROM usuario where nif = " + en.nif + " and nombre = " + en.nombre + " and edad = " + en.edad;
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * " +
-                                                        "FROM usuario where nif = " + en.nif + " " +
-                                                        "and nombre = " + en.nombre +
-                                                        " and edad = " + en.edad, conn);
+                SqlCommand cmd = new SqlCommand(comando, conn);
                 SqlDataReader dr = cmd.ExecuteReader();
                 bool encontrado = false;
                 while (dr.Read())
@@ -139,13 +133,11 @@ namespace library
         }
         public bool readPrevUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
+            string comando = "SELECT * " +"FROM usuario where nif = " + en.nif + " and nombre = " + en.nombre +" and edad = " + en.edad;
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * " +
-                                                        "FROM usuario where nif = " + en.nif + " " +
-                                                        "and nombre = " + en.nombre +
-                                                        " and edad = " + en.edad, conn);
+                SqlCommand cmd = new SqlCommand(comando, conn);
                 SqlDataReader dr = cmd.ExecuteReader();
                 ENUsuario enaux = new ENUsuario();
                 while (dr.Read())
@@ -178,12 +170,11 @@ namespace library
         }
         public bool updateUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
+            string comando = "UPDATE Usuario " + "SET nif = " + en.nif + ", nombre = " + en.nombre + ",  edad = " + en.edad + "where nif =" + en.nif;
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE Usuario " +
-                                                    "SET nif = '" + en.nif + "', nombre = '" + en.nombre + "',  edad = '" + en.edad + 
-                                                    "where nif ="+ en.nif);
+                SqlCommand cmd = new SqlCommand(comando, conn);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)

@@ -8,6 +8,7 @@ namespace library
 {
     public class ENUsuario
     {
+        private CADUsuario cad = new CADUsuario();
         private string pnif;
         private string pnombre;
         private int pedad;
@@ -44,14 +45,26 @@ namespace library
             this.nombre = nombre;
             this.edad = edad;
         }
-        public bool createUsuario() { return false; }
-        public bool readUsuario() { return false; }
+        public bool createUsuario() {
+            return cad.createUsuario(this);
+        }
+        public bool readUsuario() {
+            return cad.readUsuario(this);
+        }
         public bool readFirstUsuario() {
-            this=
-            return false; }
-        public bool readNextUsuario() { return false; }
-        public bool readPrevUsuario() { return false; }
-        public bool updateUsuario() { return false; }
-        public bool deleteUsuario() { return false; }
+            return cad.readFirstUsuario(this); 
+        }
+        public bool readNextUsuario() { 
+            return cad.readNextUsuario(this);
+        }
+        public bool readPrevUsuario() { 
+            return cad.readPrevUsuario(this);
+        }
+        public bool updateUsuario() { 
+            return cad.updateUsuario(this); 
+        }
+        public bool deleteUsuario() { 
+            return cad.deleteUsuario(this); 
+        }
     }
 }
