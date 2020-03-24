@@ -29,10 +29,10 @@ namespace library
             }
         }
         public int edad {
-            get => edad;
+            get => pedad;
             set {
                 if(value>=0)
-                    edad = value;                    
+                    pedad = value;                    
             }
         }
         public ENUsuario() {

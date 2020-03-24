@@ -96,7 +96,7 @@ namespace library
         }
         public bool readNextUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
-            string comando = "SELECT * " + "FROM usuario where nif = " + en.nif + " and nombre = " + en.nombre + " and edad = " + en.edad;
+            string comando = "SELECT * " + "FROM usuario";
             try
             {
                 conn.Open();
@@ -133,7 +133,7 @@ namespace library
         }
         public bool readPrevUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
-            string comando = "SELECT * " +"FROM usuario where nif = " + en.nif + " and nombre = " + en.nombre +" and edad = " + en.edad;
+            string comando = "SELECT * " +"FROM usuario";
             try
             {
                 conn.Open();
