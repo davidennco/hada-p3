@@ -14,7 +14,7 @@ namespace library
         private int pedad;
 
         public string nif {
-            get => pnif;
+            get { return pnif; }
             set
             {
                 pnif = value;
@@ -22,14 +22,14 @@ namespace library
         }
         public string nombre
         {
-            get => pnombre;
+            get { return pnombre; }
             set
             {
                 pnombre = value;
             }
         }
         public int edad {
-            get => pedad;
+            get { return pedad; }
             set {
                 if(value>=0)
                     pedad = value;                    
