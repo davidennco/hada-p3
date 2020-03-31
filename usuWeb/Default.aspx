@@ -28,6 +28,8 @@
         <asp:Button ID="Actualizar" runat="server" Text="Actualizar" OnClick="Actualizar_Click"/>
         &nbsp;
         <asp:Button ID="Borrar" runat="server" Text="Borrar" OnClick="Borrar_Click"/>
+        <br />
+        <asp:label ID="label1" runat="server" Text=" " />
     </div>
 </asp:Content>
 

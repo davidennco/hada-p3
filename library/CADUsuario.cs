@@ -19,59 +19,51 @@ namespace library
         }
         public bool createUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
-            string comando = "Insert Into usuario (nif, nombre, edad) " +"VALUES (" + en.nif + ", " + en.nombre + ", " + en.edad + ")";
+            string comando = "Insert Into [dbo].[Usuarios] (nif, nombre, edad) " + "VALUES ('" + en.nif + "', '" + en.nombre + "', " + en.edad + ")";
             try
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(comando, conn);
                 cmd.ExecuteNonQuery();
+                conn.Close();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 conn.Close();
+                Console.WriteLine("Error: " + e);
                 return false;
-            }
-            finally
-            {
-                conn.Close();
             }
             return true;
         }
         public bool readUsuario(ENUsuario en) {
-            SqlConnection conn = new SqlConnection(constring);
-            string comando = "SELECT * " +"FROM usuario where nif = " + en.nif +" and nombre = " + en.nombre +" and edad = " + en.edad;
+            SqlConnection conn= new SqlConnection(constring);
+            String comando = "select * from [dbo].[Usuarios] where nif='" + en.nif + "'";
             try
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(comando, conn);
                 SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                dr.Read();
+                if (dr["nif"].ToString() == en.nif)
                 {
-                    if (dr["nif"].ToString() == en.nif.ToString())
-                    {
-                        en.edad = int.Parse(dr["edad"].ToString());
-                        en.nombre = dr["nombre"].ToString();
-                        en.nif = dr["nif"].ToString();
-                        conn.Close();
-                        return true;
-                    }
+                    en.nombre = dr["nombre"].ToString();
+                    en.nif = dr["nif"].ToString();
+                    en.edad = int.Parse(dr["edad"].ToString());
+                    dr.Close();
+                    conn.Close();
+                    return true;
                 }
+                return false;
             }
             catch (Exception)
             {
                 conn.Close();
                 return false;
             }
-            finally
-            {
-                conn.Close();
-            }
-
-            return false;
         }
         public bool readFirstUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
-            string comando = "SELECT * " +"FROM usuario where nif = " + en.nif + " and nombre = " + en.nombre + " and edad = " + en.edad;
+            string comando = "SELECT * " + "FROM [dbo].[Usuarios]";
             try
             {
                 conn.Open();
@@ -96,7 +88,7 @@ namespace library
         }
         public bool readNextUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
-            string comando = "SELECT * " + "FROM usuario";
+            string comando = "SELECT * " + "FROM [dbo].[Usuarios]";
             try
             {
                 conn.Open();
@@ -113,7 +105,7 @@ namespace library
                         conn.Close();
                         return true;
                     }
-                    else if (dr["nif"].ToString() == en.nif.ToString())
+                    else if (dr["nif"].ToString() == en.nif)
                     {
                         encontrado = true;
                     }
@@ -133,7 +125,7 @@ namespace library
         }
         public bool readPrevUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
-            string comando = "SELECT * " +"FROM usuario";
+            string comando = "SELECT * " + "FROM [dbo].[Usuarios]";
             try
             {
                 conn.Open();
@@ -170,7 +162,7 @@ namespace library
         }
         public bool updateUsuario(ENUsuario en) {
             SqlConnection conn = new SqlConnection(constring);
-            string comando = "UPDATE Usuario " + "SET nif = " + en.nif + ", nombre = " + en.nombre + ",  edad = " + en.edad + "where nif =" + en.nif;
+            string comando = "UPDATE [dbo].[Usuarios] " + "SET nombre = '" + en.nombre + "',  edad = " + en.edad + "where nif ='" + en.nif+"'";
             try
             {
                 conn.Open();
@@ -190,11 +182,10 @@ namespace library
             return true;
         }
         public bool deleteUsuario(ENUsuario en) {
-            SqlConnection conn = null;
-            string comando = "Delete from Usuario where nif = " + en.nif;
+            SqlConnection conn = new SqlConnection(constring); ;
+            string comando = "Delete from [dbo].[Usuarios] where nif = '" + en.nif +"'";
             try
             {
-                conn = new SqlConnection(constring);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(comando, conn);
                 cmd.ExecuteNonQuery();
